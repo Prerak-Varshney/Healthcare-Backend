@@ -1,16 +1,16 @@
-const assignDoctorToPatient = (req, res) => {
+const assignDoctorToPatient = async(req, res) => {
     res.send('Assign Doctor to Patient');
 };
 
-const getMappings = (req, res) => {
+const getMappings = async(req, res) => {
     res.send('Get all Mappings');
 };
 
-const getMappingForPatient = (req, res) => {
+const getMappingForPatient = async(req, res) => {
     res.send(`Get Mapping for Patient by ID`);
 };
 
-const deleteDoctorFromPatientMappings = (req, res) => {
+const deleteDoctorFromPatientMappings = async(req, res) => {
     res.send(`Delete Doctor from Patient Mappings with ID`);
 };
 

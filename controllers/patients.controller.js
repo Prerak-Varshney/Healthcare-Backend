@@ -1,20 +1,20 @@
-const addPatient = (req, res) => {
+const addPatient = async(req, res) => {
     res.send('Add Patient');
 }
 
-const getPatients = (req, res) => {
+const getPatients = async(req, res) => {
     res.send('Get All Patients');
 }
 
-const getPatient = (req, res) => {
+const getPatient = async(req, res) => {
     res.send('Get Patient by ID');
 }
 
-const updatePatient = (req, res) => {
+const updatePatient = async(req, res) => {
     res.send('Update Patient by ID');
 }
 
-const deletePatient = (req, res) => {
+const deletePatient = async(req, res) => {
     res.send('Delete Patient by ID');
 }
 

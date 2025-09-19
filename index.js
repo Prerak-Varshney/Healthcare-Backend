@@ -1,12 +1,13 @@
 import express from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
-import { PORT } from './config/env.js';
 
 import authRoutes from './routes/auth.routes.js';
 import patientRoutes from './routes/patients.routes.js';
 import doctorRoutes from './routes/doctors.routes.js';
 import mappingsRoutes from './routes/mappings.routes.js';
+
+import { PORT } from './config/env.js';
 
 config();
 
@@ -28,5 +29,5 @@ app.use('/api', doctorRoutes);
 app.use('/api', mappingsRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on: http://localhost:${PORT}`);
 });
