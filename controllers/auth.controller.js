@@ -10,7 +10,7 @@ const register = async(req, res) => {
 
     if(!name || !email || !password){
         return res.status(400).json({ 
-            authStatus: "incomplete", 
+            status: "incomplete", 
             message: "Please provide all required fields" 
         });
     }
@@ -42,7 +42,7 @@ const register = async(req, res) => {
 
     }catch (error){
         res.status(500).json({ 
-            authStatus: "failed", 
+            status: "failed", 
             message: `Something Went Wrong. Details Here: ${error}` 
         });
     }
@@ -53,7 +53,7 @@ const login = async(req, res) => {
 
     if(!email || !password){
         return res.status(400).json({ 
-            authStatus: "incomplete", 
+            status: "incomplete", 
             message: "Please provide all required fields" 
         });
     }
@@ -62,7 +62,7 @@ const login = async(req, res) => {
         const [user] = await db.select().from(users).where(eq(users.email, email));
         if(!user){
             return res.status(400).json({ 
-                authStatus: "invalid", 
+                status: "invalid", 
                 message: "User not found" 
             });
         }
@@ -70,7 +70,7 @@ const login = async(req, res) => {
         const validPassword = await bcrypt.compare(password, user.password);
         if(!validPassword){
             return res.status(400).json({ 
-                authStatus: "invalid", 
+                status: "invalid", 
                 message: "Invalid Credentials" 
 
             });
@@ -83,14 +83,14 @@ const login = async(req, res) => {
         })
 
         res.status(200).json({ 
-            authStatus: "success", 
+            status: "success", 
             message: "Login Successful",
             token,
         });
 
     } catch (error){
         res.status(500).json({ 
-            authStatus: "failed", 
+            status: "failed", 
             message: `Something Went Wrong.'\n'Details Here:'\n' ${error}` 
         });
     }

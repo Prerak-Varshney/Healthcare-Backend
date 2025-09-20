@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/drizzle.js';
-import { users } from '../db/schema.js';
+import { patients } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
 
 const addPatient = async(req, res) => {
     const { name, age, gender, contact, user_id } = req.body;
     if(!name || !age || !user_id || !contact) {
         return res.status(400).json({ 
-            patientSuccess: "incomplete",
+            status: "incomplete",
             message: 'Name, age, contact and user_id are required'
         });
     }
@@ -25,14 +25,14 @@ const addPatient = async(req, res) => {
         .returning();
 
         res.status(201).json({
-            patientStatus: "created",
+            status: "created",
             message: "Patient added successfully",
             patient: newPatient
         });
 
     } catch (error){
         res.status(500).json({
-            patientStatus: "failed",
+            status: "failed",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -44,7 +44,7 @@ const getPatients = async(req, res) => {
         
         if(!userRoles.includes('admin')){
             return res.status(401).json({
-                patientStatus: "forbidden",
+                status: "forbidden",
                 message: "Access denied"
             });
         }
@@ -54,13 +54,13 @@ const getPatients = async(req, res) => {
             .from(patients);
 
         return res.status(200).json({
-            patientStatus: "success",
+            status: "success",
             patient: allPatients
         });
 
     } catch(error) {
         res.status(500).json({
-            patientStatus: "failed",
+            status: "failed",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -83,7 +83,7 @@ const getPatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                patientStatus: "invalid",
+                status: "invalid",
                 message: "Patient not found"
             });
         }
@@ -93,13 +93,13 @@ const getPatient = async(req, res) => {
 
         if (!userRoles.includes("admin") && patient.user_id !== userId) {
             return res.status(403).json({
-                patientStatus: "failed",
+                status: "failed",
                 message: "Access denied"
             });
         }
 
         res.status(200).json({
-            patientStatus: "success",
+            status: "success",
             message: "Patient found successfully",
             patient
         });
@@ -115,7 +115,7 @@ const updatePatient = async(req, res) => {
     const { id, name, age, gender, contact } = req.body;
     if(!id) {
         return res.status(400).json({ 
-            patientStatus: "incomplete",
+            status: "incomplete",
             message: 'Patient ID is required'
         });
     }
@@ -127,7 +127,7 @@ const updatePatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                patientStatus: "invalid",
+                status: "invalid",
                 message: "Patient not found"
             });
         }
@@ -137,7 +137,7 @@ const updatePatient = async(req, res) => {
 
         if (!userRoles.includes("admin") && patient.user_id !== userId) {
             return res.status(403).json({
-                patientStatus: "failed",
+                status: "failed",
                 message: "Access denied"
             });
         }
@@ -149,13 +149,13 @@ const updatePatient = async(req, res) => {
         .returning();
 
         res.status(200).json({
-            patientStatus: "updated",
+            status: "updated",
             message: "Patient updated successfully",
             patient: updatedPatient
         });
     } catch (error){
         res.status(500).json({
-            patientStatus: "failed",
+            status: "failed",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -165,7 +165,7 @@ const deletePatient = async(req, res) => {
     const { id } = req.params;
     if(!id) {
         return res.status(400).json({ 
-            patientStatus: "incomplete",
+            status: "incomplete",
             message: 'Patient ID is required'
         });
     }
@@ -177,7 +177,7 @@ const deletePatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                patientStatus: "invalid",
+                status: "invalid",
                 message: "Patient not found"
             });
         }
@@ -187,7 +187,7 @@ const deletePatient = async(req, res) => {
 
         if (!userRoles.includes("admin") && patient.user_id !== userId) {
             return res.status(403).json({
-                patientStatus: "failed",
+                status: "failed",
                 message: "Access denied"
             });
         }
@@ -197,12 +197,12 @@ const deletePatient = async(req, res) => {
         .where(eq(patients.id, id));
 
         res.status(200).json({
-            patientStatus: "deleted",
+            status: "deleted",
             message: "Patient deleted successfully"
         });
     } catch (error){
         res.status(500).json({
-            patientStatus: "failed",
+            status: "failed",
             message: `Something went wrong. Details here: ${error}`
         })
     }
