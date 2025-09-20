@@ -105,7 +105,7 @@ The goal of this assignment is to create a backend system for a healthcare appli
 | Field       | Type          | Possible Values                                                                                                                                       |
 | ----------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **status**  | string        | `"failed"` \| `"success"` \| `"invalid"` \| `"not_found"` \| `"forbidden"` \| `"created"` \| `"updated"` \| `"deleted"` \| `"unknown"` \| `"missing"` |
-| **message** | string        | A human-readable explanation of the result.                                                                                                           |
+| **message** | string        | Explanation.                                                                                                           |
 | **data**    | object / null | Returned data object, or `null` if not applicable.                                                                                                    |
 
 #
