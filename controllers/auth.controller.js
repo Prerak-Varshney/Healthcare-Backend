@@ -10,7 +10,7 @@ const register = async(req, res) => {
 
     if(!name || !email || !password){
         return res.status(400).json({ 
-            status: "incomplete", 
+            status: "missing", 
             message: "Please provide all required fields" 
         });
     }
@@ -42,7 +42,7 @@ const register = async(req, res) => {
 
     }catch (error){
         return res.status(500).json({ 
-            status: "failed", 
+            status: "unknown", 
             message: `Something Went Wrong. Details Here: ${error}` 
         });
     }
@@ -53,7 +53,7 @@ const login = async(req, res) => {
 
     if(!email || !password){
         return res.status(400).json({ 
-            status: "incomplete", 
+            status: "missing", 
             message: "Please provide all required fields" 
         });
     }
@@ -62,7 +62,7 @@ const login = async(req, res) => {
         const [user] = await db.select().from(users).where(eq(users.email, email));
         if(!user){
             return res.status(400).json({ 
-                status: "invalid", 
+                status: "not_found", 
                 message: "User not found" 
             });
         }
@@ -89,7 +89,7 @@ const login = async(req, res) => {
 
     } catch (error){
         return res.status(500).json({ 
-            status: "failed", 
+            status: "unknown", 
             message: `Something Went Wrong.'\n'Details Here:'\n' ${error}` 
         });
     }

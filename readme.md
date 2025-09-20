@@ -9,23 +9,25 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 ###  Authentication APIs
 
-**POST** `/api/auth/register/` - Register a new user with name, email, and password.
+| Method | Endpoint              | Description                                         | Access |
+| ------ | --------------------- | --------------------------------------------------- | ------ |
+| POST   | `/api/auth/register/` | Register a new user with name, email, and password. | Public |
+| POST   | `/api/auth/login/`    | Log in a user and return a JWT token.               | Public |
 
-**POST** `/api/auth/login/` - Log in a user and return a JWT token.
+
 
 #
 
 ###  Patient Management APIs
 
-**POST** `/api/patients/` - Add a new patient (Authenticated users only).
+| Method | Endpoint              | Description                                              | Access        |
+| ------ | --------------------- | -------------------------------------------------------- | ------------- |
+| POST   | `/api/patients/`      | Add a new patient.                                       | Authenticated |
+| GET    | `/api/patients/`      | Retrieve all patients created by the authenticated user. | Authenticated |
+| GET    | `/api/patients/<id>/` | Get details of a specific patient.                       | Authenticated |
+| PUT    | `/api/patients/<id>/` | Update patient details.                                  | Authenticated |
+| DELETE | `/api/patients/<id>/` | Delete a patient record.                                 | Authenticated |
 
-**GET** `/api/patients/` - Retrieve all patients created by the authenticated user.
-
-**GET** `/api/patients/<id>/` - Get details of a specific patient.
-
-**PUT** `/api/patients/<id>/` - Update patient details.
-
-**DELETE** `/api/patients/<id>/` - Delete a patient record.
 
 **Note:** For security purposes only admin can request all patients information so instead of **GET** ***/api/patients/*** - I will use **GET** ***/api/admin/patients/***
 
@@ -33,15 +35,14 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 ###  Doctor Management APIs
 
-**POST** `/api/doctors/` - Add a new doctor (Authenticated users only).
+| Method | Endpoint             | Description                       | Access        |
+| ------ | -------------------- | --------------------------------- | ------------- |
+| POST   | `/api/doctors/`      | Add a new doctor.                 | Authenticated |
+| GET    | `/api/doctors/`      | Retrieve all doctors.             | Authenticated |
+| GET    | `/api/doctors/<id>/` | Get details of a specific doctor. | Authenticated |
+| PUT    | `/api/doctors/<id>/` | Update doctor details.            | Authenticated |
+| DELETE | `/api/doctors/<id>/` | Delete a doctor record.           | Authenticated |
 
-**GET** `/api/doctors/` - Retrieve all doctors.
-
-**GET** `/api/doctors/<id>/` - Get details of a specific doctor.
-
-**PUT** `/api/doctors/<id>/` - Update doctor details.
-
-**DELETE** `/api/doctors/<id>/` - Delete a doctor record.
 
 
 **Note:** For security purposes only admin can request all patients information so instead of `GET /api/doctors/` - I will use `GET /api/admin/doctors/`
@@ -50,35 +51,50 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 ###  Patient-Doctor Mapping APIs
 
-**POST** `/api/mappings/` - Assign a doctor to a patient.
+| Method | Endpoint                      | Description                                     | Access        |
+| ------ | ----------------------------- | ----------------------------------------------- | ------------- |
+| POST   | `/api/mappings/`              | Assign a doctor to a patient.                   | Authenticated |
+| GET    | `/api/mappings/`              | Retrieve all patient-doctor mappings.           | Authenticated |
+| GET    | `/api/mappings/<patient_id>/` | Get all doctors assigned to a specific patient. | Authenticated |
+| DELETE | `/api/mappings/<id>/`         | Remove a doctor from a patient.                 | Authenticated |
 
-**GET** `/api/mappings/` - Retrieve all patient-doctor mappings.
 
-**GET** `/api/mappings/<patient_id>/` - Get all doctors assigned to a specific patient.
-
-**DELETE** `/api/mappings/<id>/` - Remove a doctor from a patient.
+**Note:** For security purposes only admin can request all patients information so instead of `GET /api/mappings/` - I will use `GET /api/admin/mappings/`
 
 #
 
 ###  Admin Routes
 
+#### Patients
 
-**GET** `/api/admin/patients`
+| Method | Endpoint                   | Description            | Access |
+| ------ | -------------------------- | ---------------------- | ------ |
+| GET    | `/api/admin/patients`      | Retrieve all patients. | Admin  |
+| GET    | `/api/admin/patients/<id>` | Get specific patient.  | Admin  |
+| PUT    | `/api/admin/patients/<id>` | Update patient.        | Admin  |
+| DELETE | `/api/admin/patients/<id>` | Delete patient.        | Admin  |
 
-**GET** `/api/admin/patients/<id>`
 
-**PUT** `/api/admin/patients/<id>`
-
-**DELETE** `/api/admin/patients/<id>`
+#### Doctors
 
 
-**GET** `/api/admin/doctors`
+| Method | Endpoint                  | Description           | Access |
+| ------ | ------------------------- | --------------------- | ------ |
+| GET    | `/api/admin/doctors`      | Retrieve all doctors. | Admin  |
+| GET    | `/api/admin/doctors/<id>` | Get specific doctor.  | Admin  |
+| PUT    | `/api/admin/doctors/<id>` | Update doctor.        | Admin  |
+| DELETE | `/api/admin/doctors/<id>` | Delete doctor.        | Admin  |
 
-**GET** `/api/admin/doctors/<id>`
 
-**PUT** `/api/admin/doctors/<id>`
+#### Mappings
 
-**DELETE** `/api/admin/doctors/<id>`
+
+| Method | Endpoint                   | Description            | Access |
+| ------ | -------------------------- | ---------------------- | ------ |
+| GET    | `/api/admin/mappings`      | Retrieve all mappings. | Admin  |
+| GET    | `/api/admin/mappings/<id>` | Get specific mapping.  | Admin  |
+| DELETE | `/api/admin/mappings/<id>` | Delete mapping.        | Admin  |
+
 
 
 
@@ -86,11 +102,11 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 **Return Json**
 
-**status:** `"failed" | "success" | "invalid" | "incomplete" | "forbidden" | "created" | "updated" | "deleted"`
-
-**message:** `string`
-
-**data:** `data | null`
+| Field       | Type          | Possible Values                                                                                                                                       |
+| ----------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **status**  | string        | `"failed"` \| `"success"` \| `"invalid"` \| `"not_found"` \| `"forbidden"` \| `"created"` \| `"updated"` \| `"deleted"` \| `"unknown"` \| `"missing"` |
+| **message** | string        | A human-readable explanation of the result.                                                                                                           |
+| **data**    | object / null | Returned data object, or `null` if not applicable.                                                                                                    |
 
 #
 

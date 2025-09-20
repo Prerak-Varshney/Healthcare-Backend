@@ -9,7 +9,7 @@ const assignDoctorToPatient = async(req, res) => {
 
         if (!patient_id || !doctor_id) {
             return res.status(400).json({ 
-                status: 'incomplete',
+                status: 'missing',
                 message: 'Patient ID and Doctor ID are required'
              });
         }
@@ -19,7 +19,7 @@ const assignDoctorToPatient = async(req, res) => {
 
         if (!patient || !doctor) {
             return res.status(400).json({ 
-                status: 'invalid',
+                status: 'not_found',
                 message: 'Patient or Doctor not found'
              });
         }
@@ -44,7 +44,7 @@ const assignDoctorToPatient = async(req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ 
-            status: 'failed', 
+            status: 'unknown', 
             message: 'Something went wrong'
          });
     }
@@ -69,7 +69,7 @@ const getMappings = async(req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ 
-            status: 'failed', 
+            status: 'unknown', 
             message: 'Something went wrong'
          });
     }
@@ -81,7 +81,7 @@ const getMappingForPatient = async(req, res) => {
 
         if (!id) {
             return res.status(400).json({ 
-                status: 'incomplete',
+                status: 'missing',
                 message: 'Patient ID is required'
              });
         }
@@ -94,14 +94,13 @@ const getMappingForPatient = async(req, res) => {
             .leftJoin(users, eq(patients.user_id, users.id))
             .where(eq(patients.id, id))
 
-        if (mappings.length === 0) {
+        if (!mappings) {
             return res.status(404).json({ 
                 status: 'not_found',
                 message: 'No mappings found for the given patient ID'
              });
         }
             
-
         return res.status(200).json({ 
             status: 'success',
             message: 'Mappings for patient fetched successfully',
@@ -111,7 +110,7 @@ const getMappingForPatient = async(req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ 
-            status: 'failed', 
+            status: 'unknown', 
             message: 'Something went wrong'
          });
     }
@@ -122,7 +121,7 @@ const deleteDoctorFromPatientMappings = async(req, res) => {
         const { id } = req.params;
         if (!id) {
             return res.status(400).json({ 
-                status: 'incomplete',
+                status: 'missing',
                 message: 'Mapping ID is required'
              });
         }
@@ -133,7 +132,7 @@ const deleteDoctorFromPatientMappings = async(req, res) => {
         
         if(!deleted){
             return res.status(404).json({ 
-                status: 'invalid',
+                status: 'failed',
                 message: 'delete failed'
              });
         }
@@ -146,7 +145,7 @@ const deleteDoctorFromPatientMappings = async(req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ 
-            status: 'failed', 
+            status: 'unknown', 
             message: 'Something went wrong'
          });
     }

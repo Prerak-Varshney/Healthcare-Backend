@@ -8,7 +8,7 @@ const addPatient = async(req, res) => {
     const { name, age, gender, contact, user_id } = req.body;
     if(!name || !age || !user_id || !contact || !gender) {
         return res.status(400).json({ 
-            status: "incomplete",
+            status: "missing",
             message: 'Name, age, gender, contact and user_id are required'
         });
     }
@@ -33,7 +33,7 @@ const addPatient = async(req, res) => {
 
     } catch (error){
         return res.status(500).json({
-            status: "failed",
+            status: "unknown",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -52,7 +52,7 @@ const getPatients = async(req, res) => {
 
     } catch(error) {
         return res.status(500).json({
-            status: "failed",
+            status: "unknown",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -62,7 +62,7 @@ const getPatient = async(req, res) => {
     const { id } = req.params;
     if(!id) {
         return res.status(400).json({ 
-            patientStatus: "incomplete",
+            patientStatus: "missing",
             message: 'Patient ID is required'
         });
     }
@@ -75,14 +75,14 @@ const getPatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                status: "invalid",
+                status: "not_found",
                 message: "Patient not found"
             });
         }
 
         if (!isRoleAllowed(req, res, patient)) {
             return res.status(403).json({
-                status: "failed",
+                status: "forbidden",
                 message: "Access denied"
             });
         }
@@ -94,7 +94,7 @@ const getPatient = async(req, res) => {
         });
     } catch (error){
         return res.status(500).json({
-            patientStatus: "failed",
+            patientStatus: "unknown",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -104,7 +104,7 @@ const updatePatient = async(req, res) => {
     const { id, name, age, gender, contact } = req.body;
     if(!id) {
         return res.status(400).json({ 
-            status: "incomplete",
+            status: "missing",
             message: 'Patient ID is required'
         });
     }
@@ -116,14 +116,14 @@ const updatePatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                status: "invalid",
+                status: "not_found",
                 message: "Patient not found"
             });
         }
 
         if (!isRoleAllowed(req, res, patient)) {
             return res.status(403).json({
-                status: "failed",
+                status: "forbidden",
                 message: "Access denied"
             });
         }
@@ -136,7 +136,7 @@ const updatePatient = async(req, res) => {
 
         if(!updatedPatient) {
             return res.status(404).json({
-                status: "invalid",
+                status: "failed",
                 message: "Update failed"
             });
         }
@@ -148,7 +148,7 @@ const updatePatient = async(req, res) => {
         });
     } catch (error){
         return res.status(500).json({
-            status: "failed",
+            status: "unknown",
             message: `Something went wrong. Details here: ${error}`
         })
     }
@@ -158,7 +158,7 @@ const deletePatient = async(req, res) => {
     const { id } = req.params;
     if(!id) {
         return res.status(400).json({ 
-            status: "incomplete",
+            status: "missing",
             message: 'Patient ID is required'
         });
     }
@@ -170,14 +170,14 @@ const deletePatient = async(req, res) => {
 
         if(!patient) {
             return res.status(404).json({
-                status: "invalid",
+                status: "not_found",
                 message: "Patient not found"
             });
         }
 
         if (!isRoleAllowed(req, res, patient)) {
             return res.status(403).json({
-                status: "failed",
+                status: "forbidden",
                 message: "Access denied"
             });
         }
@@ -189,7 +189,7 @@ const deletePatient = async(req, res) => {
 
         if(!deleted) {
             return res.status(404).json({
-                status: "invalid",
+                status: "failed",
                 message: "Delete failed"
             });
         }
@@ -200,7 +200,7 @@ const deletePatient = async(req, res) => {
         });
     } catch (error){
         return res.status(500).json({
-            status: "failed",
+            status: "unknown",
             message: `Something went wrong. Details here: ${error}`
         })
     }
