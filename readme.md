@@ -1,7 +1,9 @@
 
 ## **Building a Healthcare Backend**
 
-The goal of this assignment is to create a backend system for a healthcare application using Node, Express, and PostgreSQL. The system should allow users to register, log in, and manage patient and doctor records securely.
+The goal of this assignment is to create a backend system for a healthcare application using Node, and PostgreSQL. The system should allow users to register, log in, and manage patient and doctor records securely.
+
+**Technologies Used:** Node, Express, Neon PostgreSQL, Drizzle (ORM) and JWT.
 
 #
 
