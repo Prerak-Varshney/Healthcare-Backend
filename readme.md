@@ -110,9 +110,8 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 #
 
-### Build
+### ENV Setup
 
-#### ENV format
 `PORT`
 
 `NODE_ENV`
