@@ -1,6 +1,6 @@
 import { pgTable, text, varchar, timestamp, integer } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
+const users = pgTable("users", {
   id: text("id").primaryKey(),         
   name: varchar("name", { length: 100 }),
   email: varchar("email", { length: 255 }).notNull().unique(),
@@ -12,7 +12,7 @@ export const users = pgTable("users", {
     .$onUpdate(() => new Date()),
 });
 
-export const patients = pgTable("patients", {
+const patients = pgTable("patients", {
   id: text("id").primaryKey(),
   user_id: text("user_id").references(() => users.id).notNull(),
   name: varchar("name", { length: 100 }).notNull(),
@@ -23,7 +23,7 @@ export const patients = pgTable("patients", {
   updated_at: timestamp("updated_at").defaultNow(),
 });
 
-export const doctors = pgTable("doctors", {
+const doctors = pgTable("doctors", {
   id: text("id").primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
   specialization: varchar("specialization", { length: 100 }),
@@ -32,9 +32,11 @@ export const doctors = pgTable("doctors", {
   updated_at: timestamp("updated_at").defaultNow(),
 });
 
-export const patientDoctorMappings = pgTable("patient_doctor_mappings", {
+const patientDoctorMappings = pgTable("patient_doctor_mappings", {
   id: text("id").primaryKey(),
   patient_id: text("patient_id").references(() => patients.id).notNull(),
   doctor_id: text("doctor_id").references(() => doctors.id).notNull(),
   assigned_at: timestamp("assigned_at").defaultNow(),
 });
+
+export { users, patients, doctors, patientDoctorMappings };

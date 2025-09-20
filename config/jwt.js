@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './env.js';
 
-export const generateToken = (payload) => {
+const generateToken = (payload) => {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 }
 
-export const verifyToken = (token) => {
+const verifyToken = (token) => {
     try {
         return jwt.verify(token, JWT_SECRET);
 
@@ -13,3 +13,5 @@ export const verifyToken = (token) => {
         return null;
     }
 }
+
+export { generateToken, verifyToken };

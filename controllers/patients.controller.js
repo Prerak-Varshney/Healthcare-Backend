@@ -134,6 +134,13 @@ const updatePatient = async(req, res) => {
         .where(eq(patients.id, id))
         .returning();
 
+        if(!updatedPatient) {
+            return res.status(404).json({
+                status: "invalid",
+                message: "Update failed"
+            });
+        }
+
         return res.status(200).json({
             status: "updated",
             message: "Patient updated successfully",
@@ -175,9 +182,17 @@ const deletePatient = async(req, res) => {
             });
         }
 
-        await db
-        .delete(patients)
-        .where(eq(patients.id, id));
+        const [deleted] = await db
+            .delete(patients)
+            .where(eq(patients.id, id))
+            .returning();
+
+        if(!deleted) {
+            return res.status(404).json({
+                status: "invalid",
+                message: "Delete failed"
+            });
+        }
 
         return res.status(200).json({
             status: "deleted",

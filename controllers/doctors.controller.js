@@ -128,15 +128,22 @@ const updateDoctor = async(req, res) => {
         }
 
         const [updatedDoctor] = await db
-        .update(doctors)
-        .set({
-            name: name || doctor.name,
-            specialization: specialization || doctor.specialization,
-            contact: contact || doctor.contact,
-            updated_at: new Date()
-        })
-        .where(eq(doctors.id, id))
-        .returning();
+            .update(doctors)
+            .set({
+                name: name || doctor.name,
+                specialization: specialization || doctor.specialization,
+                contact: contact || doctor.contact,
+                updated_at: new Date()
+            })
+            .where(eq(doctors.id, id))
+            .returning();
+
+        if(!updatedDoctor) {
+            return res.status(404).json({
+                status: "invalid",
+                message: "Update failed"
+            });
+        }
 
         return res.status(200).json({
             status: "updated",
@@ -161,9 +168,9 @@ const deleteDoctor = async(req, res) => {
     }
     try {
         const [doctor] = await db
-        .select()
-        .from(doctors)
-        .where(eq(doctors.id, id));
+            .select()
+            .from(doctors)
+            .where(eq(doctors.id, id));
 
         if(!doctor) {
             return res.status(404).json({
@@ -179,9 +186,17 @@ const deleteDoctor = async(req, res) => {
             });
         }
 
-        await db
-        .delete(doctors)
-        .where(eq(doctors.id, id));
+        const [deleted] = await db
+            .delete(doctors)
+            .where(eq(doctors.id, id))
+            .returning();
+
+        if(!deleted) {
+            return res.status(404).json({
+                status: "invalid",
+                message: "Delete failed"
+            });
+        }
 
         return res.status(200).json({
             status: "deleted",
