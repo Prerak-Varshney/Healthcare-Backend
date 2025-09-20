@@ -127,6 +127,18 @@ Get **Arcjet** Key from Here: *https://app.arcjet.com*
 
 #### Build
 
+#### Clone
+
+```bash
+  git clone https://github.com/Prerak-Varshney/Healthcare-Backend.git
+```
+
+```bash
+  cd healthcare-backend
+```
+
+#### Commands Separate
+
 ```bash
   npx drizzle-kit generate
 ```
@@ -139,7 +151,7 @@ Get **Arcjet** Key from Here: *https://app.arcjet.com*
   npm run start
 ```
 
-#### Too lazy? just run
+#### Too lazy? Just Run
 
 ```bash
   npm run chaos
