@@ -9,7 +9,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "chaos": "npx drizzle-kit generate && npx drizzle-kit push && npm run start"
   },
   "dependencies": {
     "@arcjet/inspect": "^1.0.0-beta.11",

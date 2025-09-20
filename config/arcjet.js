@@ -16,6 +16,7 @@ const aj = arcjet({
         // See the full list at https://arcjet.com/bot-list
         "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
         "CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
+        "CURL", // Curl command
       ],
     }),
     // Create a token bucket rate limit. Other algorithms are supported.
