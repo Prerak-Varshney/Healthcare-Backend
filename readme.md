@@ -1,3 +1,4 @@
+
 ## **Building a Healthcare Backend**
 
 The goal of this assignment is to create a backend system for a healthcare application using Node, Express, and PostgreSQL. The system should allow users to register, log in, and manage patient and doctor records securely.
@@ -54,6 +55,30 @@ The goal of this assignment is to create a backend system for a healthcare appli
 **GET** `/api/mappings/<patient_id>/` - Get all doctors assigned to a specific patient.
 
 **DELETE** `/api/mappings/<id>/` - Remove a doctor from a patient.
+
+#
+
+###  Admin Routes
+
+
+**GET** `/api/admin/patients`
+
+**GET** `/api/admin/patients/<id>`
+
+**PUT** `/api/admin/patients/<id>`
+
+**DELETE** `/api/admin/patients/<id>`
+
+
+**GET** `/api/admin/doctors`
+
+**GET** `/api/admin/doctors/<id>`
+
+**PUT** `/api/admin/doctors/<id>`
+
+**DELETE** `/api/admin/doctors/<id>`
+
+
 
 #
 
