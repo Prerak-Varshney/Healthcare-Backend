@@ -1,1 +1,2 @@
-### authStatus: "failed" | "success" | "invalid" | "incomplete"
+### authStatus: "failed" | "success" | "invalid" | "incomplete" | "forbidden" | "created"
+### patientStatus: "failed" | "success" | "invalid" | "incomplete" | "forbidden" | "created" | "updated" | "deleted"

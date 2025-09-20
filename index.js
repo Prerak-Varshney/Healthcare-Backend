@@ -10,17 +10,16 @@ import mappingsRoutes from './routes/mappings.routes.js';
 import { PORT } from './config/env.js';
 
 config();
-
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 console.log(`Environment: ${process.env.NODE_ENV}`);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to Healthcare Backend API');
+app.get('/', (_, res) => {
+    res.send('<h1>Welcome to Healthcare Backend API</h1>');
 })
 
 app.use('/api/auth', authRoutes);

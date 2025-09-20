@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/drizzle.js';
 import { users } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
+import { generateToken } from '../config/jwt.js';
 import bcrypt from 'bcrypt';
 
 const register = async(req, res) => {
@@ -27,14 +28,16 @@ const register = async(req, res) => {
         })
         .returning();
 
+        const token = generateToken({
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email
+        })
+
         res.status(200).json({
-            status: "success",
+            status: "created",
             message: "User Created Successfully",
-            user: {
-                id: newUser.id,
-                name: newUser.name,
-                email: newUser.email
-            }
+            token
         })
 
     }catch (error){
@@ -60,7 +63,7 @@ const login = async(req, res) => {
         if(!user){
             return res.status(400).json({ 
                 authStatus: "invalid", 
-                message: "Invalid Credentials" 
+                message: "User not found" 
             });
         }
 
@@ -73,14 +76,16 @@ const login = async(req, res) => {
             });
         }
 
+        const token = generateToken({
+            id: user.id,
+            name: user.name,
+            email: user.email
+        })
+
         res.status(200).json({ 
             authStatus: "success", 
             message: "Login Successful",
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email
-            } 
+            token,
         });
 
     } catch (error){
