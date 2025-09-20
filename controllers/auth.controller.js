@@ -34,14 +34,14 @@ const register = async(req, res) => {
             email: newUser.email
         })
 
-        res.status(200).json({
+        return res.status(200).json({
             status: "created",
             message: "User Created Successfully",
-            token
+            data: token
         })
 
     }catch (error){
-        res.status(500).json({ 
+        return res.status(500).json({ 
             status: "failed", 
             message: `Something Went Wrong. Details Here: ${error}` 
         });
@@ -72,7 +72,6 @@ const login = async(req, res) => {
             return res.status(400).json({ 
                 status: "invalid", 
                 message: "Invalid Credentials" 
-
             });
         }
 
@@ -82,14 +81,14 @@ const login = async(req, res) => {
             email: user.email
         })
 
-        res.status(200).json({ 
+        return res.status(200).json({ 
             status: "success", 
             message: "Login Successful",
-            token,
+            data: token,
         });
 
     } catch (error){
-        res.status(500).json({ 
+        return res.status(500).json({ 
             status: "failed", 
             message: `Something Went Wrong.'\n'Details Here:'\n' ${error}` 
         });

@@ -5,7 +5,7 @@ export const users = pgTable("users", {
   name: varchar("name", { length: 100 }),
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: text("password").notNull(),
-  roles: text("roles").array().notNull().default("{user}"), //patient, doctor or admin
+  roles: text("roles").array().notNull().default("{user}"), //patient, doctor, admin
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at')
     .notNull()

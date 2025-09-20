@@ -5,6 +5,7 @@ import { addPatient, getPatients, getPatient, updatePatient, deletePatient } fro
 const router = Router();
 
 router.post('/patients', authMiddleware, addPatient);
+// router.get('/patients', authMiddleware, getPatients);
 router.get('/patients/:id', authMiddleware, getPatient);
 router.put('/patients/:id', authMiddleware, updatePatient);
 router.delete('/patients/:id', authMiddleware, deletePatient);
