@@ -17,6 +17,8 @@ const aj = arcjet({
         "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
         "CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
         "CURL", // Curl command
+        "WGET", // Wget command
+        "POSTMAN", // Postman tool
       ],
     }),
     // Create a token bucket rate limit. Other algorithms are supported.
