@@ -18,7 +18,7 @@ const patients = pgTable("patients", {
   name: varchar("name", { length: 100 }).notNull(),
   age: integer("age").notNull(),
   gender: varchar("gender", { length: 10 }),
-  contact: varchar("contact", { length: 15 }),
+  contact: varchar("contact", { length: 10 }),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 });

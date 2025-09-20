@@ -6,12 +6,12 @@ const generateToken = (payload) => {
 }
 
 const verifyToken = (token) => {
-    try {
-        return jwt.verify(token, JWT_SECRET);
-
-    } catch (error) {
-        return null;
-    }
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if(err) {
+            return "invalid";
+        }
+        return decoded;
+    });
 }
 
 export { generateToken, verifyToken };
