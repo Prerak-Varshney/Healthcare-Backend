@@ -110,6 +110,43 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 #
 
+### Build
+
+#### ENV format
+`PORT`
+
+`NODE_ENV`
+
+`JWT_SECRET`
+
+`ARCJET_KEY`
+
+`ARCJET_ENV`
+
+Get **Arcjet** Key from Here: *https://app.arcjet.com*
+
+#### Build
+
+```bash
+  npx drizzle-kit generate
+```
+ 
+```bash
+  npx drizzle-kit push
+```
+
+```bash
+  npm run start
+```
+
+#### Too lazy? just run
+
+```bash
+  npm run chaos
+```
+
+#
+
 ###  Expected Outcome:
 
  - Users should be able to register and log in.
