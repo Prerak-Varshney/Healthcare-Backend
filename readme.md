@@ -3,7 +3,7 @@
 
 The goal of this assignment is to create a backend system for a healthcare application using Node, and PostgreSQL. The system should allow users to register, log in, and manage patient and doctor records securely.
 
-**Technologies Used:** Node, Express, Neon PostgreSQL, Drizzle (ORM) and JWT.
+**Technologies Used:** Node, Express, Neon PostgreSQL, Drizzle (ORM), JWT, and Arcjet.
 
 #
 
