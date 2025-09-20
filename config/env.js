@@ -6,6 +6,8 @@ export const {
     NODE_ENV,
     PORT,
     DATABASE_URL,
-    JWT_SECRET
+    JWT_SECRET,
+    ARCJET_KEY,
+    ARCJET_ENV,
     
 } = process.env;

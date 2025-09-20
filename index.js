@@ -2,12 +2,14 @@ import express from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
 
+import { PORT } from './config/env.js';
+
 import authRoutes from './routes/auth.routes.js';
 import patientRoutes from './routes/patients.routes.js';
 import doctorRoutes from './routes/doctors.routes.js';
 import mappingsRoutes from './routes/mappings.routes.js';
 
-import { PORT } from './config/env.js';
+import { arcJetMiddleware } from './middleware/arcjet.middleware.js';
 
 config();
 const app = express();
@@ -15,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(arcJetMiddleware);
 
 console.log(`Environment: ${process.env.NODE_ENV}`);
 
