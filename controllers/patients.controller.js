@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/drizzle.js';
-import { patients } from '../db/schema.js';
+import { patients, users } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
 import { isRoleAllowed } from '../utils/isRoleAllowed.js';
 
@@ -37,6 +37,13 @@ const addPatient = async(req, res) => {
             user_id
         })
         .returning();
+
+        // give patient role to the user
+        const role = [... new Set(['patient'])];
+        await db
+            .update(users)
+            .set({ role })
+            .where(eq(users.id, user_id));
 
         return res.status(201).json({
             status: "created",

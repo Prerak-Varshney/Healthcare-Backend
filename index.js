@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import patientRoutes from './routes/patients.routes.js';
 import doctorRoutes from './routes/doctors.routes.js';
 import mappingsRoutes from './routes/mappings.routes.js';
+import adminRoutes from './routes/admin.routes.js';
 
 import { arcJetMiddleware } from './middleware/arcjet.middleware.js';
 
@@ -29,11 +30,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors`', doctorRoutes);
 app.use('/api/mappings`', mappingsRoutes);
+app.use('/api/admin', adminRoutes);
+
 // app.use('/api/auth', authRoutes);
 // app.use('/api', patientRoutes);
 // app.use('/api', doctorRoutes);
 // app.use('/api', mappingsRoutes);
-// app.use('/api/admin', adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
