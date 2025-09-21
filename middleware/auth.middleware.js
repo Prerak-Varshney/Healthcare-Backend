@@ -16,11 +16,13 @@ const authMiddleware = (req, res, next) => {
     });
   }
   req.user = decoded;
+  console.log("Auth middleware: ", req.user);
   next();
 };
 
 const adminMiddleware = (req, res, next) => {
-  if (!req.user?.roles.includes('admin')) {
+  console.log("Admin middleware: ", req.user);
+  if (!req.user || !req.user.roles || !req.user.roles.includes('admin')) {
     return res.status(403).json({
       status: "forbidden",
       message: "Admin access required"

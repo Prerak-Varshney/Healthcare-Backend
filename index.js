@@ -4,6 +4,8 @@ import cors from 'cors';
 
 import { PORT } from './config/env.js';
 
+import { authMiddleware, adminMiddleware } from './middleware/auth.middleware.js';
+
 import authRoutes from './routes/auth.routes.js';
 import patientRoutes from './routes/patients.routes.js';
 import doctorRoutes from './routes/doctors.routes.js';
@@ -30,12 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors`', doctorRoutes);
 app.use('/api/mappings`', mappingsRoutes);
-app.use('/api/admin', adminRoutes);
-
-// app.use('/api/auth', authRoutes);
-// app.use('/api', patientRoutes);
-// app.use('/api', doctorRoutes);
-// app.use('/api', mappingsRoutes);
+app.use('/api/admin', authMiddleware, adminMiddleware, adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);

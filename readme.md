@@ -65,9 +65,9 @@ The goal of this assignment is to create a backend system for a healthcare appli
 
 ###  Admin Routes
 
-| Method | Endpoint                   | Description       | Access        |
-| ------ | -------------------------- | ------------------| ------------- |
-| POST    | `/api/admin/roles/<id>`   | Make Admin Role.  | Authenticated |
+| Method | Endpoint                   | Description       | Access |
+| ------ | -------------------------- | ------------------| -------|
+| POST    | `/api/admin/roles/<id>`   | Make Admin Role.  | Admin  |
 
 #### Patients
 
