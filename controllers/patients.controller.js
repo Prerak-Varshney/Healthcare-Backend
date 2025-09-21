@@ -80,7 +80,7 @@ const getPatient = async(req, res) => {
             });
         }
 
-        if (!isRoleAllowed(req, res, patient)) {
+        if (!isRoleAllowed(req, patient)) {
             return res.status(403).json({
                 status: "forbidden",
                 message: "Access denied"

@@ -6,13 +6,13 @@ const authMiddleware = (req, res, next) => {
   if (!token) return res.status(401).json({ 
     status: "forbidden",
     message: "No token provided" 
-});
+  });
 
   const decoded = verifyToken(token);
   if(decoded === "invalid") {
     return res.status(403).json({ 
-        status: "forbidden",
-        message: "Invalid token" 
+      status: "forbidden",
+      message: "Invalid token" 
     });
   }
   req.user = decoded;
@@ -21,10 +21,10 @@ const authMiddleware = (req, res, next) => {
 
 const adminMiddleware = (req, res, next) => {
   if (!req.user?.roles.includes('admin')) {
-      return res.status(403).json({
-          status: "forbidden",
-          message: "Admin access required"
-      });
+    return res.status(403).json({
+      status: "forbidden",
+      message: "Admin access required"
+    });
   } 
   next();
 }
