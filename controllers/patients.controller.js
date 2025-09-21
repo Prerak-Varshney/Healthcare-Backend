@@ -39,10 +39,15 @@ const addPatient = async(req, res) => {
         .returning();
 
         // give patient role to the user
-        const role = [... new Set(['patient'])];
+        const [newPatientUser] = await db
+            .select()
+            .from(users)
+            .where(eq(users.id, user_id));
+
+        const roles = [...new Set([...newPatientUser.roles, "patient"])]
         await db
             .update(users)
-            .set({ role })
+            .set({ roles })
             .where(eq(users.id, user_id));
 
         return res.status(201).json({
