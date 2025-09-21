@@ -104,4 +104,51 @@ const login = async(req, res) => {
     }
 }
 
-export {register, login };
+const setAdminRole = async(req, res) => {
+    const { id } = req.params;
+
+    if( !id ){
+        return res.status(400).json({ 
+            status: "missing", 
+            message: "Please provide all required fields" 
+        });
+    }
+
+    try {
+        const [user] = await db.select().from(users).where(eq(users.id, id));
+        if(!user){
+            return res.status(404).json({ 
+                status: "not_found", 
+                message: "User not found" 
+            });
+        }
+
+        if(user.roles.includes("admin")) {
+            return res.status(400).json({ 
+                status: "conflict", 
+                message: "User already is Admin" 
+            });
+        }
+
+        const roles = [...new Set([...user.roles, "admin"])];
+
+        const [updatedUser] = await db.update(users)
+            .set({ roles })
+            .where(eq(users.id, id))
+            .returning();
+
+        return res.status(200).json({
+            status: "success",
+            message: "User roles updated successfully",
+            data: updatedUser
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            status: "unknown",  
+            message: `Something Went Wrong.'\n'Details Here:'\n' ${error}` 
+        });
+    }
+}   
+
+export { register, login, setAdminRole };
