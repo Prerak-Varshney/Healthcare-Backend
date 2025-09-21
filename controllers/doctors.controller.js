@@ -13,6 +13,18 @@ const addDoctor = async(req, res) => {
         });
     }
     try {
+        const [existingDoctor] = await db
+            .select()
+            .from(doctors)
+            .where(eq(doctors.user_id, user_id));
+
+        if(existingDoctor) {
+            return res.status(409).json({
+                status: "conflict",
+                message: "Doctor with this user_id already exists"
+            });
+        }
+
         const [newDoctor] = await db
         .insert(doctors)
         .values({

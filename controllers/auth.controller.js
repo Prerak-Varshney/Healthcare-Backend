@@ -20,11 +20,10 @@ const register = async(req, res) => {
         const [existingUser] = await db.select().from(users).where(eq(users.email, email));
         if(existingUser){
             return res.status(400).json({ 
-                status: "invalid", 
+                status: "conflict", 
                 message: "User with this email already exists" 
             });
         }
-
 
         const hashedPassword = await bcrypt.hash(password, 10);
 

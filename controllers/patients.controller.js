@@ -12,7 +12,20 @@ const addPatient = async(req, res) => {
             message: 'Name, age, gender, contact and user_id are required'
         });
     }
+
     try {
+        const [existingPatient] = await db
+            .select()
+            .from(patients)
+            .where(eq(patients.user_id, user_id));
+
+        if(existingPatient) {
+            return res.status(409).json({
+                status: "conflict",
+                message: "Patient with this user_id already exists"
+            });
+        }
+
         const [newPatient] = await db
         .insert(patients)
         .values({
