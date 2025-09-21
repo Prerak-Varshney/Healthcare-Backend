@@ -1,19 +1,13 @@
 import { Router } from "express";
-import { authMiddleware, adminMiddleware } from "../middleware/auth.middleware.js";
-import { addPatient, getPatients, getPatient, updatePatient, deletePatient } from "../controllers/patients.controller.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
+import { addPatient, getPatient, updatePatient, deletePatient } from "../controllers/patients.controller.js";
 
 const router = Router();
 
-router.post('/patients', authMiddleware, addPatient);
-// router.get('/patients', authMiddleware, getPatients);
-router.get('/patients/:id', authMiddleware, getPatient);
-router.put('/patients/:id', authMiddleware, updatePatient);
-router.delete('/patients/:id', authMiddleware, deletePatient);
-
-//Admin
-router.get('/admin/patients', authMiddleware, adminMiddleware, getPatients);
-router.get('/admin/patients/:id', authMiddleware, adminMiddleware, getPatient);
-router.put('/admin/patients/:id', authMiddleware, adminMiddleware, updatePatient);
-router.delete('/admin/patients/:id', authMiddleware, adminMiddleware, deletePatient);
+router.post('/', authMiddleware, addPatient);
+// router.get('/', authMiddleware, getPatients);
+router.get('/:id', authMiddleware, getPatient);
+router.put('/:id', authMiddleware, updatePatient);
+router.delete('/:id', authMiddleware, deletePatient);
 
 export default router;

@@ -26,9 +26,14 @@ app.get('/', (_, res) => {
 })
 
 app.use('/api/auth', authRoutes);
-app.use('/api', patientRoutes);
-app.use('/api', doctorRoutes);
-app.use('/api', mappingsRoutes);
+app.use('/api/patients', patientRoutes);
+app.use('/api/doctors`', doctorRoutes);
+app.use('/api/mappings`', mappingsRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api', patientRoutes);
+// app.use('/api', doctorRoutes);
+// app.use('/api', mappingsRoutes);
+// app.use('/api/admin', adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
