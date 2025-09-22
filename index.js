@@ -30,7 +30,7 @@ app.get('/', (_, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
-app.use('/api/doctors`', doctorRoutes);
+app.use('/api/doctors', doctorRoutes);
 app.use('/api/mappings`', mappingsRoutes);
 app.use('/api/admin', authMiddleware, adminMiddleware, adminRoutes);
 

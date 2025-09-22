@@ -26,6 +26,7 @@ const patients = pgTable("patients", {
 const doctors = pgTable("doctors", {
   id: text("id").primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
+  user_id: text("user_id").references(() => users.id).notNull(),
   specialization: varchar("specialization", { length: 100 }),
   contact: varchar("contact", { length: 15 }),
   created_at: timestamp("created_at").defaultNow(),
